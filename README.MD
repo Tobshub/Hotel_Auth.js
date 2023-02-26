@@ -1,0 +1,136 @@
+## Installation
+
+- clone the repository
+- install the dependencies: using `npm i`
+- create a new file named `.env` in root folder of the project.
+- Mongo DB atlas is advised for the `DATABASE_URL` key but local database url is fine
+  -start the server in development by running: `npm start`. Read the output from the terminal to be sure the server is running and the database is connected.
+
+## The App url
+
+- localhost:3000/api/v1/rooms
+- localhost:3000/api/v1/room-types
+- NB: Your port above may differ from this port
+
+### Sample request and response
+
+- creating a new room type
+- endpoint: localhost:3000/api/v1/room-types
+- method: POST
+  Sample request
+
+```json
+{
+  "codeName": "bronze"
+}
+```
+
+Sample response
+
+```json
+{
+  "success": true,
+  "message": "created room type",
+  "data": {
+    "codeName": "bronze",
+    "_id": "63e730b65b1b9246ae78b330",
+    "createdAt": "2023-02-11T06:07:50.995Z",
+    "updatedAt": "2023-02-11T06:07:50.995Z"
+  }
+}
+```
+
+#### creating a new room
+
+- endpoint: localhost:3000/api/v1/rooms
+- method: POST
+
+Sample request
+
+```json
+{
+  "roomType": "63e6c0767734b38b983d5aeb",
+  "price": 200,
+  "name": "uba-unn"
+}
+```
+
+// sample response
+
+```json
+{
+  "success": true,
+  "message": "Room created successfully",
+  "data": {
+    "name": "unn-unn",
+    "price": 200,
+    "size": "small",
+    "roomType": "63e6c05b7734b38b983d5ae7",
+    "_id": "63e6c5fc453e89b329bdfb2c",
+    "createdAt": "2023-02-10T22:32:28.502Z",
+    "updatedAt": "2023-02-10T22:32:28.502Z",
+    "__v": 0
+  }
+}
+```
+
+#### making a search
+
+- endpoint: `localhost:3000/api/v1/rooms?search=uba`
+- Method: `GET`
+
+sample response
+
+```json
+{
+  "success": true,
+  "message": "Rooms search successfully",
+  "data": [
+    {
+      "_id": "63e6c622453e89b329bdfb2f",
+      "name": "uba-unn",
+      "price": 200,
+      "size": "small",
+      "roomType": {
+        "_id": "63e6c0767734b38b983d5aeb",
+        "codeName": "silver",
+        "createdAt": "2023-02-10T22:08:54.738Z",
+        "updatedAt": "2023-02-10T22:08:54.738Z",
+        "__v": 0
+      },
+      "createdAt": "2023-02-10T22:33:06.574Z",
+      "updatedAt": "2023-02-10T22:33:06.574Z",
+      "__v": 0
+    }
+  ]
+}
+```
+
+#### Filtering by rooms' name
+
+- Endpoint: `localhost:3000/api/v1/rooms?name=uba-unn`
+- Method: `GET`
+
+  Server response sample
+
+```json
+{
+  "success": true,
+  "message": "Room found successfully",
+  "data": [
+    {
+      "_id": "63e6c622453e89b329bdfb2f",
+      "name": "uba-unn",
+      "price": 200,
+      "size": "small",
+      "roomType": {
+        "_id": "63e6c0767734b38b983d5aeb",
+        "codeName": "silver"
+      },
+      "createdAt": "2023-02-10T22:33:06.574Z",
+      "updatedAt": "2023-02-10T22:33:06.574Z",
+      "__v": 0
+    }
+  ]
+}
+```
